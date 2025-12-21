@@ -1,6 +1,8 @@
 // src/app/layout.js
 import "./globals.css";
 import Link from "next/link";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 export const metadata = {
   title: "SportNews",
