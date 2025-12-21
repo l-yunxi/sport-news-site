@@ -1,0 +1,153 @@
+/* src/app/news/[slug]/article.module.css */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #111;
+  color: #fff;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* --- Головне фото --- */
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+  filter: brightness(0.8); /* Трохи затемнюємо фото */
+}
+
+.heroOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  z-index: 2;
+}
+
+.categoryTag {
+  display: inline-block;
+  background-color: #ff0055; /* Неоновий червоний */
+  color: white;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: 3rem; /* Великий заголовок */
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* --- Сітка: Стаття зліва, Сайдбар справа --- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+/* На комп'ютерах робимо 2 колонки */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 2fr 1fr; /* Стаття ширша за сайдбар */
+  }
+}
+
+/* --- Текст статті --- */
+.meta {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
+}
+
+.content {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.content p {
+  margin-bottom: 20px;
+}
+
+.content h2, .content h3 {
+  color: white;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.content ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+/* --- Сайдбар (права колонка) --- */
+.sidebar {
+/*   position: sticky; 
+   top: 20px; */   /*---    не працює ---*/
+}
+
+.sidebarBox {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.sidebarTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  border-left: 4px solid #ff0055;
+  color: white;
+}
+
+.recentLink {
+  display: block;
+  padding: 10px 0;
+  color: #ccc;
+  text-decoration: none;
+  border-bottom: 1px solid #333;
+  transition: color 0.3s;
+}
+
+.recentLink:hover {
+  color: #ff0055;
+}
+
+.relatedGrid {
+  display: grid;
+  gap: 15px;
+}
+
+.relatedCard {
+  background: #333;
+  padding: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+.relatedCard:hover {
+  background: #444;
+}

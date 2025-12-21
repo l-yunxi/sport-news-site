@@ -1,0 +1,147 @@
+/* src/app/news/news.module.css */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* --- ПОШУК І ФІЛЬТРИ --- */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.searchBar {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: 1px solid #333;
+  background: #222;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.searchBar:focus {
+  border-color: #ff0055;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.filterBtn {
+  background: #222;
+  color: #888;
+  border: 1px solid #333;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.filterBtn:hover {
+  background: #333;
+  color: white;
+}
+
+/* Активна кнопка */
+.activeBtn {
+  background: #ff0055;
+  color: white;
+  border-color: #ff0055;
+}
+
+/* --- СІТКА НОВИН --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: #222;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 16/9;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.catTag {
+  color: #ff0055;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.cardTitle {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+
+.date {
+  margin-top: auto;
+  color: #666;
+  font-size: 12px;
+}
+
+.noResults {
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
+  grid-column: 1 / -1;
+  padding: 50px 0;
+}

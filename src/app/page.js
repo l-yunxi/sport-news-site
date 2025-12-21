@@ -1,66 +1,73 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// src/app/page.js
+import Link from 'next/link';
+import { client } from '../sanity/client'; // Імпортуємо підключення до Sanity
+import styles from './page.module.css';     // Імпортуємо стилі
 
-export default function Home() {
+// Функція для отримання новин
+async function getData() {
+  const query = `*[_type == "post"] | order(_createdAt desc) {
+    title,
+    "slug": slug.current,
+    "category": category,
+    "imageUrl": mainImage.asset->url
+  }`;
+  
+  // revalidate: 0 означає, що кеш оновлюється миттєво
+  const data = await client.fetch(query, {}, { next: { revalidate: 0 } });
+  return data;
+}
+
+export default async function Home() {
+  const posts = await getData();
+
+  // Якщо новин немає або сталася помилка
+  if (!posts || posts.length === 0) {
+    return (
+      <div className={styles.container}>
+        <h1 style={{color: 'white'}}>No news yet</h1>
+      </div>
+    );
+  }
+
+  const mainPost = posts[0];           // Перша новина (велика)
+  const sidePosts = posts.slice(1, 4); // Наступні 3 новини (збоку)
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      <main className={styles.container}>
+      {/* Секція в стилі ZoxPress */}
+      <section className={styles.heroGrid}>
+        
+        {/* ВЕЛИКИЙ ПОСТ (Зліва) */}
+        <Link href={`/news/${mainPost.slug}`} className={styles.mainPost}>
+          {mainPost.imageUrl ? (
+            <img src={mainPost.imageUrl} alt={mainPost.title} className={styles.bgImage} />
+          ) : (
+            <div className={styles.placeholder}>No photo</div>
+          )}
+          <div className={styles.postContent}>
+            <span className={styles.categoryTag}>{mainPost.category || 'Sport'}</span>
+            <h2 className={styles.titleMain}>{mainPost.title}</h2>
+          </div>
+        </Link>
+
+        {/* БОКОВІ ПОСТИ (Справа) */}
+        <div className={styles.sidePostsColumn}>
+          {sidePosts.map((post) => (
+            <Link key={post.slug} href={`/news/${post.slug}`} className={styles.sidePost}>
+              {post.imageUrl ? (
+                <img src={post.imageUrl} alt={post.title} className={styles.bgImage} />
+              ) : (
+                <div className={styles.placeholder}></div>
+              )}
+              <div className={styles.postContent}>
+                <span className={styles.categoryTag}>{post.category || 'News'}</span>
+                <h3 className={styles.titleSide}>{post.title}</h3>
+              </div>
+            </Link>
+          ))}
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+      </section>
+    </main>
   );
 }
