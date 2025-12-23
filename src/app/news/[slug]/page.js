@@ -5,14 +5,14 @@ import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-import styles from "./article.module.css"; // <--- Імпортуємо стилі!
+import styles from "./article.module.css"; 
 
 const builder = imageUrlBuilder(client);
 function urlFor(source) {
   return builder.image(source);
 }
 
-// 1. Отримання даних
+// 1. Data retrieval
 async function getPost(slug) {
   const query = `*[_type == "post" && slug.current == $slug][0] {
     title,
@@ -33,7 +33,7 @@ async function getPost(slug) {
   return await client.fetch(query, { slug }, { next: { revalidate: 60 } });
 }
 
-// 2. Час читання
+// 2. Reading time
 const calculateReadingTime = (blocks) => {
   if (!blocks) return 1;
   const text = blocks
@@ -42,11 +42,10 @@ const calculateReadingTime = (blocks) => {
   return Math.ceil(text.split(" ").length / 200) || 1;
 };
 
-// 3. Компоненти тексту (зображення всередині статті)
-// 3. Компоненти тексту (зображення, відео, цитати)
+// 3. Text components (images, videos, quotes)
 const ptComponents = {
   types: {
-    // Рендеринг зображень у тексті
+    // Rendering images in text
     image: ({ value }) => {
       if (!value?.asset?._ref) return null;
       return (
@@ -73,10 +72,10 @@ const ptComponents = {
         </figure>
       );
     },
-    // Рендеринг YouTube відео
+    // Rendering YouTube video
     youtube: ({ value }) => {
       if (!value?.url) return null;
-      // Витягуємо ID відео
+      // Extracting video ID
       const id = value.url.split('v=')[1] || value.url.split('/').pop();
       return (
         <div style={{ 
@@ -104,7 +103,7 @@ const ptComponents = {
     },
   },
   block: {
-    // Стилізація заголовків та цитат через ваш CSS Module
+    // Styling headings and quotes through your CSS Module
     h2: ({ children }) => <h2 className={styles.articleH2}>{children}</h2>,
     h3: ({ children }) => <h3 className={styles.articleH3}>{children}</h3>,
     blockquote: ({ children }) => (
@@ -115,7 +114,7 @@ const ptComponents = {
   },
 };
 
-// 4. ГОЛОВНИЙ КОМПОНЕНТ
+// 4. MAIN COMPONENT
 export default async function PostPage(props) {
   const params = await props.params;
   const { slug } = params;
@@ -124,12 +123,12 @@ export default async function PostPage(props) {
   if (!post) return notFound();
 
   const readingTime = calculateReadingTime(post.content);
-  const date = new Date(post._createdAt).toLocaleDateString("uk-UA"); // Українська дата
+  const date = new Date(post._createdAt).toLocaleDateString("uk-UA"); // Ukrainian date
 
   return (
     <div className={styles.container}>
       
-      {/* ГЕРОЙ (Велике фото) */}
+      {/* HERO (Big photo) */}
       {post.mainImage && (
         <div className={styles.heroSection}>
           <Image
@@ -148,10 +147,10 @@ export default async function PostPage(props) {
         </div>
       )}
 
-      {/* СІТКА (Контент + Сайдбар) */}
+      {/* GRID (Content + Sidebar) */}
       <div className={styles.grid}>
         
-        {/* ЛІВА КОЛОНКА */}
+        {/* LEFT COLUMN */}
         <article>
           <div className={styles.meta}>
             <span>📅 {date}</span> &nbsp; • &nbsp; 
@@ -166,7 +165,7 @@ export default async function PostPage(props) {
             )}
           </div>
 
-          {/* Схожі статті (під текстом) */}
+          {/* Similar articles (under the text) */}
           <div style={{ marginTop: "60px", paddingTop: "20px", borderTop: "1px solid #333" }}>
             <h3 style={{ marginBottom: "20px" }}>Related articles</h3>
             <div className={styles.relatedGrid}>
@@ -179,7 +178,7 @@ export default async function PostPage(props) {
           </div>
         </article>
 
-        {/* ПРАВА КОЛОНКА (Сайдбар) */}
+        {/* RIGHT COLUMN (Sidebar) */}
         <aside className={styles.sidebar}>
           <div className={styles.sidebarBox}>
             <h3 className={styles.sidebarTitle}>Latest news</h3>

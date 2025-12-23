@@ -1,8 +1,8 @@
 // src/app/news/page.js
-import { client } from "@/sanity/client"; // Перевірте шлях до вашого клієнта
+import { client } from "@/sanity/client"; 
 import NewsList from "./NewsList";
 
-// Функція для отримання ВСІХ новин
+// Function to get ALL news
 async function getAllPosts() {
   const query = `*[_type == "post"] | order(_createdAt desc) {
     title,
@@ -12,20 +12,20 @@ async function getAllPosts() {
     "imageUrl": mainImage.asset->url
   }`;
 
-  // revalidate: 60 - оновлювати кеш кожну хвилину
+  // revalidate: 60 - update cache every minute
   return await client.fetch(query, {}, { next: { revalidate: 60 } });
 }
 
 export const metadata = {
-  title: "Всі новини | SportNews",
-  description: "Архів усіх спортивних новин",
+  title: "All news | SportNews",
+  description: "Archive of all sports news",
 };
 
 export default async function NewsPage() {
   const posts = await getAllPosts();
 
   return (
-    // Ми просто передаємо дані у клієнтський компонент
+    // We just pass the data to the client component
     <NewsList posts={posts} />
   );
 }

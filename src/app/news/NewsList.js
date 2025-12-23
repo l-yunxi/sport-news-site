@@ -1,5 +1,5 @@
 // src/app/news/NewsList.js
-"use client"; // Важливо! Це робить компонент клієнтським
+"use client"; // Important! This makes the component client-side
 
 import { useState } from "react";
 import Link from "next/link";
@@ -9,10 +9,10 @@ export default function NewsList({ posts }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Отримуємо список унікальних категорій з усіх постів
+  // Getting the list of unique categories from all posts
   const categories = ["All", ...new Set(posts.map((post) => post.category).filter(Boolean))];
 
-  // Логіка фільтрації
+  // Filtering logic
   const filteredPosts = posts.filter((post) => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
@@ -23,19 +23,19 @@ export default function NewsList({ posts }) {
     <div className={styles.container}>
       
       <div className={styles.header}>
-        <h1 className={styles.title}>Архів Новин</h1>
+        <h1 className={styles.title}>News Archive</h1>
         
         <div className={styles.controls}>
-          {/* Пошук */}
+          {/* Search */}
           <input
             type="text"
-            placeholder="Пошук новин..."
+            placeholder="Search news..."
             className={styles.searchBar}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
 
-          {/* Кнопки категорій */}
+          {/* Category buttons */}
           <div className={styles.categories}>
             {categories.map((cat) => (
               <button
@@ -50,7 +50,7 @@ export default function NewsList({ posts }) {
         </div>
       </div>
 
-      {/* Список карток */}
+      {/* List of cards */}
       <div className={styles.grid}>
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
@@ -66,13 +66,13 @@ export default function NewsList({ posts }) {
                 <span className={styles.catTag}>{post.category || "General"}</span>
                 <h3 className={styles.cardTitle}>{post.title}</h3>
                 <span className={styles.date}>
-                  {new Date(post._createdAt).toLocaleDateString("uk-UA")}
+                  {new Date(post._createdAt).toLocaleDateString("en-US")}
                 </span>
               </div>
             </Link>
           ))
         ) : (
-          <div className={styles.noResults}>Нічого не знайдено 😔</div>
+          <div className={styles.noResults}>Nothing found 😔</div>
         )}
       </div>
     </div>

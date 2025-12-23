@@ -1,9 +1,11 @@
 // src/app/page.js
 import Link from 'next/link';
-import { client } from '../sanity/client'; // Імпортуємо підключення до Sanity
-import styles from './page.module.css';     // Імпортуємо стилі
+import { client } from '../sanity/client'; 
+import styles from './page.module.css';    
+import HeroSection from "@/components/HeroSection"; 
 
-// Функція для отримання новин
+
+// Function to fetch news from Sanity
 async function getData() {
   const query = `*[_type == "post"] | order(_createdAt desc) {
     title,
@@ -12,7 +14,7 @@ async function getData() {
     "imageUrl": mainImage.asset->url
   }`;
   
-  // revalidate: 0 означає, що кеш оновлюється миттєво
+  // revalidate: 0 means that cash updates instantly
   const data = await client.fetch(query, {}, { next: { revalidate: 0 } });
   return data;
 }
@@ -20,7 +22,7 @@ async function getData() {
 export default async function Home() {
   const posts = await getData();
 
-  // Якщо новин немає або сталася помилка
+  // If no posts or error
   if (!posts || posts.length === 0) {
     return (
       <div className={styles.container}>
@@ -29,45 +31,13 @@ export default async function Home() {
     );
   }
 
-  const mainPost = posts[0];           // Перша новина (велика)
-  const sidePosts = posts.slice(1, 4); // Наступні 3 новини (збоку)
+  const mainPost = posts[0];           // First news (big one)
+  const sidePosts = posts.slice(1, 4); // Next 3 news (sides)
 
   return (
       <main className={styles.container}>
-      {/* Секція в стилі ZoxPress */}
-      <section className={styles.heroGrid}>
-        
-        {/* ВЕЛИКИЙ ПОСТ (Зліва) */}
-        <Link href={`/news/${mainPost.slug}`} className={styles.mainPost}>
-          {mainPost.imageUrl ? (
-            <img src={mainPost.imageUrl} alt={mainPost.title} className={styles.bgImage} />
-          ) : (
-            <div className={styles.placeholder}>No photo</div>
-          )}
-          <div className={styles.postContent}>
-            <span className={styles.categoryTag}>{mainPost.category || 'Sport'}</span>
-            <h2 className={styles.titleMain}>{mainPost.title}</h2>
-          </div>
-        </Link>
-
-        {/* БОКОВІ ПОСТИ (Справа) */}
-        <div className={styles.sidePostsColumn}>
-          {sidePosts.map((post) => (
-            <Link key={post.slug} href={`/news/${post.slug}`} className={styles.sidePost}>
-              {post.imageUrl ? (
-                <img src={post.imageUrl} alt={post.title} className={styles.bgImage} />
-              ) : (
-                <div className={styles.placeholder}></div>
-              )}
-              <div className={styles.postContent}>
-                <span className={styles.categoryTag}>{post.category || 'News'}</span>
-                <h3 className={styles.titleSide}>{post.title}</h3>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-      </section>
+      {/* Just call the component and pass it the posts */}
+      <HeroSection posts={posts} />
     </main>
   );
 }

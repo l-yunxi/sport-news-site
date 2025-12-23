@@ -27,7 +27,7 @@ export default {
       type: 'string',
       options: {
         list: [
-          { title: 'Water polo', value: 'Water polo' },
+          { title: 'Water polo', value: 'Water-polo' },
           { title: 'Boxing', value: 'Boxing' },
           { title: 'Tennis', value: 'Tennis' },
           { title: 'Basketball', value: 'Basketball' },

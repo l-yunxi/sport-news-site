@@ -10,7 +10,7 @@
   font-family: Arial, sans-serif;
 }
 
-/* --- Головне фото --- */
+/* --- Main photo --- */
 .heroSection {
   position: relative;
   width: 100%;
@@ -22,7 +22,7 @@
 
 .heroImage {
   object-fit: cover;
-  filter: brightness(0.8); /* Трохи затемнюємо фото */
+  filter: brightness(0.8); /* Slightly darken the photo */
 }
 
 .heroOverlay {
@@ -37,7 +37,7 @@
 
 .categoryTag {
   display: inline-block;
-  background-color: #ff0055; /* Неоновий червоний */
+  background-color: #ff0055; /* neon red */
   color: white;
   padding: 6px 12px;
   text-transform: uppercase;
@@ -48,28 +48,28 @@
 }
 
 .title {
-  font-size: 3rem; /* Великий заголовок */
+  font-size: 3rem; 
   line-height: 1.1;
   margin: 0;
   font-weight: 800;
   text-transform: uppercase;
 }
 
-/* --- Сітка: Стаття зліва, Сайдбар справа --- */
+/* --- Grid: Article on the left, Sidebar on the right --- */
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
 }
 
-/* На комп'ютерах робимо 2 колонки */
+/* On desktops, make 2 columns */
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: 2fr 1fr; /* Стаття ширша за сайдбар */
+    grid-template-columns: 2fr 1fr; /* Article is wider than the sidebar */
   }
 }
 
-/* --- Текст статті --- */
+/* --- article text --- */
 .meta {
   color: #888;
   font-size: 14px;

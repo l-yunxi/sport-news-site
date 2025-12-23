@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="uk">
+    <html lang="en">
       <body>
         {/* This container keeps the entire site centered */}
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
@@ -25,13 +25,32 @@ export default function RootLayout({ children }) {
             borderBottom: '1px solid #333',
             marginBottom: '30px'
           }}>
-            <Link href="/" style={{ fontSize: '2rem', fontWeight: '900' }}>
+            {/* logo */}
+            <Link href="/" style={{ fontSize: '2rem', fontWeight: '900', textDecoration: 'none' }}>
               SPORT<span style={{ color: '#ff0055' }}>NEWS</span>
             </Link>
-            <nav style={{ display: 'flex', gap: '20px' }}>
-              <Link href="/" style={{ fontWeight: 'bold' }}>Home</Link>
-              <Link href="#" style={{ color: '#888' }}>About us</Link>
-              <Link href="/news" style={{ color: '#ccc' }}>Archive</Link> {/* <-- Додайте це */}
+
+            {/* menu */}
+            <nav style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
+              
+              {/* regular link */}
+              <Link href="/" style={{ fontWeight: 'bold', color: 'white' }}>Home</Link>
+
+              {/* --- DROPDOWN LIST "SPORT" --- */}
+              <div className="dropdown">
+                <button className="dropbtn">
+                  Sport <span className="arrow">▼</span>
+                </button>
+                <div className="dropdown-content">
+                  <Link href="/boxing">Boxing</Link>
+                  <Link href="/tennis">Tennis</Link>
+                  <Link href="/water polo">Water polo</Link>
+                  <Link href="/swimming">Swimming</Link>
+                </div>
+              </div>
+              {/* ---------------------------------- */}
+
+              <Link href="/news" style={{ color: '#ccc' }}>All news</Link>
             </nav>
           </header>
 
@@ -40,7 +59,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
 
-          {/* ФУТЕР */}
+          {/* FOOTER */}
           <footer style={{ marginTop: '50px', padding: '20px 0', borderTop: '1px solid #333', textAlign: 'center', color: '#666' }}>
             © 2025 SportNews
           </footer>
