@@ -14,7 +14,7 @@ export default function HeroSection({ posts }) {
     <section className={styles.heroGrid}>
       
       {/* GREAT POST (Left) */}
-      <Link href={`/news/${mainPost.slug}`} className={styles.mainPost}>
+      <Link href={`/post/${mainPost.slug}`} className={styles.mainPost}>
         {mainPost.imageUrl ? (
           <img src={mainPost.imageUrl} alt={mainPost.title} className={styles.bgImage} />
         ) : (
@@ -29,14 +29,14 @@ export default function HeroSection({ posts }) {
       {/* SIDE POSTS (Right) */}
       <div className={styles.sidePostsColumn}>
         {sidePosts.map((post) => (
-          <Link key={post.slug} href={`/news/${post.slug}`} className={styles.sidePost}>
+          <Link key={post.slug} href={`/post/${post.slug}`} className={styles.sidePost}>
             {post.imageUrl ? (
               <img src={post.imageUrl} alt={post.title} className={styles.bgImage} />
             ) : (
               <div className={styles.placeholder}></div>
             )}
             <div className={styles.postContent}>
-              <span className={styles.categoryTag}>{post.category || 'News'}</span>
+              <span className={styles.categoryTag}>{post.category}</span>
               <h3 className={styles.titleSide}>{post.title}</h3>
             </div>
           </Link>

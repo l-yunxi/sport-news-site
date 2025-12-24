@@ -1,9 +1,25 @@
 // studio/schemas/post.js
 export default {
   name: 'post',
-  title: 'News Post',
+  title: 'Post',
   type: 'document',
   fields: [
+    { 
+      name: 'section',
+      title: 'Type of article (Section)',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'News', value: 'news' },
+          { title: 'Encyclopedia', value: 'encyclopedia' },
+          { title: 'Interviews', value: 'interviews' },
+          { title: 'Analytics', value: 'analytics' },
+          { title: 'Video', value: 'video' },
+        ],
+        layout: 'dropdown'
+      },
+      validation: Rule => Rule.required(),
+    },
     {
       name: 'title',
       title: 'Title',
@@ -27,7 +43,7 @@ export default {
       type: 'string',
       options: {
         list: [
-          { title: 'Water polo', value: 'Water-polo' },
+          { title: 'Water polo', value: 'Water polo' },
           { title: 'Boxing', value: 'Boxing' },
           { title: 'Tennis', value: 'Tennis' },
           { title: 'Basketball', value: 'Basketball' },

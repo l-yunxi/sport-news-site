@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 export const metadata = {
-  title: "SportNews",
+  title: "ThalionSport",
   description: "Stay updated with the latest and greatest in sports news, featuring in-depth articles, expert analysis, and exclusive interviews.",
 };
 
@@ -27,30 +27,39 @@ export default function RootLayout({ children }) {
           }}>
             {/* logo */}
             <Link href="/" style={{ fontSize: '2rem', fontWeight: '900', textDecoration: 'none' }}>
-              SPORT<span style={{ color: '#ff0055' }}>NEWS</span>
+              <span style={{ color: '#00ccff' }}>Thalion</span>Sport
             </Link>
 
             {/* menu */}
             <nav style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
-              
-              {/* regular link */}
-              <Link href="/" style={{ fontWeight: 'bold', color: 'white' }}>Home</Link>
+             {/* Кнопка НОВИНИ */}
+  <div className="dropdown">
+    <button className="dropbtn">News ▼</button>
+    <div className="dropdown-content">
+      <Link href="/news/water polo">Water polo</Link>
+      <Link href="/news/boxing">Boxing</Link>
+    </div>
+  </div>
 
-              {/* --- DROPDOWN LIST "SPORT" --- */}
-              <div className="dropdown">
-                <button className="dropbtn">
-                  Sport <span className="arrow">▼</span>
-                </button>
-                <div className="dropdown-content">
-                  <Link href="/boxing">Boxing</Link>
-                  <Link href="/tennis">Tennis</Link>
-                  <Link href="/water polo">Water polo</Link>
-                  <Link href="/swimming">Swimming</Link>
-                </div>
-              </div>
-              {/* ---------------------------------- */}
+  {/* Кнопка ЕНЦИКЛОПЕДІЯ */}
+  <div className="dropdown">
+    <button className="dropbtn">Encyclopedia ▼</button>
+    <div className="dropdown-content">
+      <Link href="/encyclopedia/boxing">Boxing</Link>
+      <Link href="/encyclopedia/water polo">Water polo</Link>
+    </div>
+  </div>
 
-              <Link href="/news" style={{ color: '#ccc' }}>All news</Link>
+  {/* Кнопка ІНТЕРВ'Ю (Нова!) */}
+  <div className="dropdown">
+    <button className="dropbtn">Interviews ▼</button>
+    <div className="dropdown-content">
+      <Link href="/interviews/boxing">boxing</Link>
+      <Link href="/interviews/water polo">water polo</Link>
+    </div>
+  </div>
+  <Link href="/post" style={{ color: '#ccc' }}>All articles</Link>
+             
             </nav>
           </header>
 
@@ -61,7 +70,7 @@ export default function RootLayout({ children }) {
 
           {/* FOOTER */}
           <footer style={{ marginTop: '50px', padding: '20px 0', borderTop: '1px solid #333', textAlign: 'center', color: '#666' }}>
-            © 2025 SportNews
+            © 2025 Thalion All rights reserved.
           </footer>
 
         </div>
