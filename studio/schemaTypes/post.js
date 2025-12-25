@@ -1,10 +1,13 @@
-// studio/schemas/post.js
-export default {
+// studio/schemaTypes/post.js
+import {defineType, defineField} from 'sanity';
+import {SubcategoryInput} from '../components/SubcategoryInput';
+
+export default defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
   fields: [
-    { 
+    defineField({
       name: 'section',
       title: 'Type of article (Section)',
       type: 'string',
@@ -14,44 +17,62 @@ export default {
           { title: 'Encyclopedia', value: 'encyclopedia' },
           { title: 'Interviews', value: 'interviews' },
           { title: 'Analytics', value: 'analytics' },
-          { title: 'Video', value: 'video' },
         ],
-        layout: 'dropdown'
+        layout: 'radio',
       },
-      validation: Rule => Rule.required(),
-    },
-    {
+    }),
+
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
-    },
-    {
+    }),
+
+    defineField({
       name: 'slug',
       title: 'Slug (URL)',
       type: 'slug',
-      options: { source: 'title' }
-    },
-    {
+      options: {source: 'title'},
+    }),
+
+    defineField({
       name: 'mainImage',
       title: 'Main Image',
       type: 'image',
-      options: { hotspot: true }
-    },
-    {
+      options: {hotspot: true},
+    }),
+
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
       options: {
         list: [
-          { title: 'Water polo', value: 'Water polo' },
-          { title: 'Boxing', value: 'Boxing' },
-          { title: 'Tennis', value: 'Tennis' },
-          { title: 'Basketball', value: 'Basketball' },
-          { title: 'Other', value: 'Other' }
-        ]
-      }
-    },
-    {
+          { title: 'Swimming', value: 'swimming' },
+          { title: 'Diving', value: 'diving' },
+          { title: 'Rowing & Paddling Sports', value: 'rowing-and-paddling' },
+          { title: 'Surfing & Board Sports', value: 'surfing-and-boards' },
+          { title: 'Sailing Sports', value: 'sailing' },
+          { title: 'Team Water Sports', value: 'team-water-sports' },
+          { title: 'Underwater Sports', value: 'underwater-sports' },
+          { title: 'Other', value: 'other' },
+        ],
+        layout: 'dropdown',
+      },
+      placeholder: 'Select category', 
+      validation: Rule => Rule.required().error('Category is required'),
+    }),
+    defineField({
+      name: 'subcategory',
+      title: 'Subcategory',
+      type: 'string',
+      components: {
+        input: SubcategoryInput,
+      },
+      validation: Rule => Rule.required().error('Subcategory is required'),
+      hidden: ({document}) => !document?.category,
+    }),
+    defineField({
       name: 'content',
       title: 'Content',
       type: 'array',
@@ -81,6 +102,6 @@ export default {
           ],
         },
       ],
-    }
-  ]
-}
+    })
+  ],
+});

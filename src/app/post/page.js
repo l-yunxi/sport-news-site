@@ -8,6 +8,7 @@ async function getAllPosts() {
     title,
     "slug": slug.current,
     category,
+    section,
     _createdAt,
     "imageUrl": mainImage.asset->url
   }`;

@@ -20,7 +20,7 @@
   color: white;
 }
 
-/* --- ПОШУК І ФІЛЬТРИ --- */
+/* --- SEARCH AND FILTERS --- */
 .controls {
   display: flex;
   flex-direction: column;
@@ -69,14 +69,14 @@
   color: white;
 }
 
-/* Активна кнопка */
+/* Active button */
 .activeBtn {
   background: #ff0055;
   color: white;
   border-color: #ff0055;
 }
 
-/* --- СІТКА НОВИН --- */
+/* --- NEWS GRID --- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

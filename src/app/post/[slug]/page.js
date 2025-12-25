@@ -170,7 +170,7 @@ export default async function PostPage(props) {
             <h3 style={{ marginBottom: "20px" }}>Related articles</h3>
             <div className={styles.relatedGrid}>
                 {post.related?.map((item) => (
-                  <Link key={item.slug} href={`/news/${item.slug}`} className={styles.relatedCard}>
+                  <Link key={item.slug} href={`/post/${item.slug}`} className={styles.relatedCard}>
                     {item.title}
                   </Link>
                 ))}
@@ -181,10 +181,10 @@ export default async function PostPage(props) {
         {/* RIGHT COLUMN (Sidebar) */}
         <aside className={styles.sidebar}>
           <div className={styles.sidebarBox}>
-            <h3 className={styles.sidebarTitle}>Latest news</h3>
+            <h3 className={styles.sidebarTitle}>Latest articles</h3>
             <div>
               {post.recent?.map((recent) => (
-                <Link key={recent.slug} href={`/news/${recent.slug}`} className={styles.recentLink}>
+                <Link key={recent.slug} href={`/post/${recent.slug}`} className={styles.recentLink}>
                   {recent.title}
                 </Link>
               ))}

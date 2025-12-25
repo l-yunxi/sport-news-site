@@ -8,15 +8,18 @@ import styles from "./news.module.css";
 export default function NewsList({ posts }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedSection, setSelectedSection] = useState("All");
 
-  // Getting the list of unique categories from all posts
+  // Getting the list of unique categories and sections from all posts
   const categories = ["All", ...new Set(posts.map((post) => post.category).filter(Boolean))];
+  const sections = ["All", ...new Set(posts.map((post) => post.section).filter(Boolean))];
 
   // Filtering logic
   const filteredPosts = posts.filter((post) => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesSection = selectedSection === "All" || post.section === selectedSection;
+    return matchesSearch && matchesCategory && matchesSection;
   });
 
   return (
@@ -47,6 +50,19 @@ export default function NewsList({ posts }) {
               </button>
             ))}
           </div>
+
+          {/* Section buttons */}
+          <div className={styles.categories}>
+            {sections.map((sec) => (
+              <button
+                key={sec}
+                onClick={() => setSelectedSection(sec)}
+                className={`${styles.filterBtn} ${selectedSection === sec ? styles.activeBtn : ""}`}
+              >
+                {sec}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -54,7 +70,7 @@ export default function NewsList({ posts }) {
       <div className={styles.grid}>
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
-            <Link key={post.slug} href={`/news/${post.slug}`} className={styles.card}>
+            <Link key={post.slug} href={`/post/${post.slug}`} className={styles.card}>
               <div className={styles.imageWrapper}>
                 {post.imageUrl ? (
                   <img src={post.imageUrl} alt={post.title} className={styles.image} />

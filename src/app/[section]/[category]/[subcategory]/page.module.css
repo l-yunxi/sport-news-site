@@ -1,0 +1,60 @@
+/* src/app/[section]/[category]/[subcategory]/page.module.css */
+
+.container {
+ /* padding: 20px; */
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.breadcrumbs {
+  color: #888;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin: 10px 0px 10px 0;
+}
+
+.sectionName {
+  opacity: 0.7;
+}
+
+.categoryLink {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.categoryLink:hover {
+  color: white;
+}
+
+.subcategoryName {
+  font-weight: bold;
+}
+
+.title {
+  /* clamp makes the font responsive */
+  font-size: clamp(1rem, 5vw, 2.1rem);
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 20px;
+  color: white;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  /* We will pass the border color through inline-style because it is dynamic */
+}
+
+.emptyState {
+  padding: 60px;
+  text-align: center;
+  color: #888;
+  border: 1px solid #333;
+  border-radius: 12px;
+  background-color: #111;
+}
+
+.emptyTitle {
+  margin-bottom: 10px;
+  color: white;
+}

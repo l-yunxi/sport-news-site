@@ -116,3 +116,43 @@ a {
 .dropdown:hover .arrow {
   transform: rotate(180deg); /* Rotate arrow on hover */
 }
+
+
+/* Submenu styles */
+.dropdown-submenu {
+  position: relative;
+}
+
+.submenu-title {
+  color: white !important;
+  font-weight: 600;
+}
+
+.submenu-content {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: #2a2a2a;
+  min-width: 240px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 8px 0;
+  margin-left:-1px;
+}
+
+.dropdown-submenu:hover .submenu-content {
+  display: block;
+}
+
+.submenu-content a {
+  padding: 10px 20px;
+  font-size: 0.95rem;
+}
+
+.submenu-content a:hover {
+  background-color: #ff006e;
+  padding-left: 28px;
+}
+

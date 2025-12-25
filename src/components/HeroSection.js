@@ -6,7 +6,7 @@ export default function HeroSection({ posts }) {
   // If there is no news, we don't draw anything to avoid errors
   if (!posts || posts.length === 0) return null;
 
-    // Логіка розділення: 1-й пост - головний, наступні 3 - бокові
+    // Separation logic: 1st post - main, next 3 - side
   const mainPost = posts[0];
   const sidePosts = posts.slice(1, 4);
 
