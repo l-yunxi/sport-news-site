@@ -57,7 +57,7 @@
   margin: 0;
   font-weight: 800;
   text-transform: uppercase;
-  color: var(--foreground); /* Black on light, white on dark */
+  color: white; 
 }
 
 /* --- Grid: Article (left) + Sidebar (right) --- */
