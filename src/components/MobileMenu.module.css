@@ -1,42 +1,67 @@
 /* src/components/MobileMenu.module.css */
 
-/* src/components/MobileMenu.module.css */
-
-.mobileWrapper { display: block; }
-@media (min-width: 768px) { .mobileWrapper { display: none; } }
-
-.burgerBtn {
-  background: none; border: none; 
-  /* Використовуємо змінну для кольору тексту */
-  color: var(--foreground); 
-  font-size: 2rem; cursor: pointer; z-index: 2000; position: relative;
+.mobileWrapper { 
+  display: block; 
 }
 
+@media (min-width: 768px) { 
+  .mobileWrapper { 
+    display: none; 
+  } 
+}
+
+.burgerBtn {
+  background: none;
+  border: none;
+  /* Use a variable for text color (matches global foreground) */
+  color: var(--foreground);
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2000;
+  position: relative;
+}
+
+/* Fullscreen mobile menu overlay */
 .overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  /* МАГІЯ ТУТ: Фон береться з глобальних налаштувань теми */
-  background-color: var(--background); 
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh;
+  /* Background and text colors come from global theme settings */
+  background-color: var(--background);
+  color: var(--foreground);
   z-index: 1999;
   padding: 80px 20px 50px 20px;
   overflow-y: auto;
-  transition: background-color 0.3s ease; /* Плавна зміна кольору */
+  transition: background-color 0.3s ease; /* Smooth color transition */
 }
 
+/* Container for navigation sections inside mobile menu */
 .navContainer {
-  display: flex; flex-direction: column; gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
+/* Home / main link at the top of the menu */
 .homeLink {
-  color: #00ccff; font-size: 1.5rem; font-weight: 900;
-  text-decoration: none; margin-bottom: 10px; display: block;
+  color: var(--accent-color); /* Accent color from global variables */
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-decoration: none;
+  margin-bottom: 10px;
+  display: block;
 }
 
+/* Section separator */
 .sectionWrapper {
-  /* Робимо лінію напівпрозорою, щоб вона підходила під будь-який фон */
+  /* Semi-transparent line that works on any background */
   border-bottom: 1px solid rgba(128, 128, 128, 0.2);
   padding-bottom: 10px;
 }
 
+/* Clickable header for each section */
 .sectionHeader {
   display: flex; 
   justify-content: space-between; 
@@ -45,53 +70,77 @@
   padding: 10px 0;
 }
 
+/* Section title (e.g. "News", "Gallery", etc.) */
 .sectionTitle {
-  /* Текст тепер адаптивний */
-  color: var(--foreground); 
-  font-size: 1.4rem; font-weight: 800;
-  text-transform: uppercase; letter-spacing: 1px;
+  /* Text color adapts to theme */
+  color: var(--foreground);
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* Icon on the right (arrow) */
 .arrowIcon {
-  color: #ff0055; font-size: 1.2rem;
+  color: var(--accent-color); /* Use accent color for icon */
+  font-size: 1.2rem;
 }
 
-/* Дерево категорій */
+/* Category tree container */
 .treeContainer {
   margin-top: 10px;
   padding-left: 10px;
-  /* Лінія зліва теж адаптивна */
+  /* Left border is also theme-friendly */
   border-left: 2px solid rgba(128, 128, 128, 0.2);
   animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(-5px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
-.categoryItem { margin-bottom: 15px; }
+.categoryItem { 
+  margin-bottom: 15px; 
+}
 
+/* Main category link */
 .catLink {
-  /* Трохи світліший/темніший за основний текст */
+  /* Slightly lighter/darker than main text via opacity */
   color: var(--foreground);
-  opacity: 0.9; 
-  font-size: 1.1rem; font-weight: bold;
-  text-decoration: none; display: block; margin-bottom: 5px;
+  opacity: 0.9;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
 }
 
+/* Subcategory list */
 .subList {
-  display: flex; flex-direction: column; gap: 8px; padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 15px;
 }
 
+/* Subcategory links */
 .subLink {
-  /* Використовуємо адаптивний колір з прозорістю */
+  /* Use adaptive color with transparency */
   color: var(--foreground);
   opacity: 0.6;
-  font-size: 0.95rem; text-decoration: none;
+  font-size: 0.95rem;
+  text-decoration: none;
 }
 
+/* Hover effect for subcategories */
 .subLink:hover { 
   opacity: 1;
-  color: #00ccff; /* Акцент при наведенні */
+  color: var(--accent-color); /* Accent color on hover */
 }

@@ -1,5 +1,6 @@
 /* src/app/news/news.module.css */
 
+/* Main container with max width and responsive padding */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -7,17 +8,19 @@
   min-height: 100vh;
 }
 
+/* Centered header section */
 .header {
   text-align: center;
   margin-bottom: 40px;
 }
 
+/* Main page title */
 .title {
   font-size: 3rem;
   font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 20px;
-  color: white;
+  color: var(--foreground); /* Uses global foreground color */
 }
 
 /* --- SEARCH AND FILTERS --- */
@@ -29,23 +32,27 @@
   margin-bottom: 40px;
 }
 
+/* Search input field */
 .searchBar {
   width: 100%;
   max-width: 500px;
   padding: 12px 20px;
   border-radius: 30px;
-  border: 1px solid #333;
-  background: #222;
-  color: white;
+  /* Theme-adaptive border and background */
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent dark bg */
+  color: var(--foreground);
   font-size: 16px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
 }
 
 .searchBar:focus {
-  border-color: #ff0055;
+  border-color: var(--accent-color); /* Accent color on focus */
+  box-shadow: 0 0 0 3px rgba(255, 0, 85, 0.1);
 }
 
+/* Category filter buttons container */
 .categories {
   display: flex;
   flex-wrap: wrap;
@@ -53,10 +60,11 @@
   gap: 10px;
 }
 
+/* Individual filter button (inactive state) */
 .filterBtn {
-  background: #222;
-  color: #888;
-  border: 1px solid #333;
+  background: rgba(34, 34, 34, 0.8);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(128, 128, 128, 0.3);
   padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
@@ -65,15 +73,17 @@
 }
 
 .filterBtn:hover {
-  background: #333;
-  color: white;
+  background: rgba(51, 51, 51, 0.9);
+  color: var(--foreground);
+  border-color: rgba(128, 128, 128, 0.5);
 }
 
-/* Active button */
+/* Active filter button */
 .activeBtn {
-  background: #ff0055;
+  background: var(--accent-color);
   color: white;
-  border-color: #ff0055;
+  border-color: var(--accent-color);
+  box-shadow: 0 2px 8px rgba(255, 0, 85, 0.3);
 }
 
 /* --- NEWS GRID --- */
@@ -83,20 +93,24 @@
   gap: 25px;
 }
 
+/* Individual news card */
 .card {
-  background: #222;
+  background: rgba(34, 34, 34, 0.9); /* Semi-transparent card background */
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
-  transition: transform 0.3s;
+  transition: all 0.3s;
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Image container with fixed aspect ratio */
 .imageWrapper {
   position: relative;
   aspect-ratio: 16/9;
@@ -109,6 +123,7 @@
   object-fit: cover;
 }
 
+/* Card content area */
 .content {
   padding: 20px;
   display: flex;
@@ -116,31 +131,35 @@
   flex-grow: 1;
 }
 
+/* Category tag (blue accent) */
 .catTag {
-  color: #00ccff;
+  color: #00ccff; /* Kept as hardcoded accent for category tags */
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
 
+/* News card title */
 .cardTitle {
-  color: white;
+  color: var(--foreground);
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0 0 10px;
   line-height: 1.4;
 }
 
+/* Publication date */
 .date {
   margin-top: auto;
-  color: #666;
+  color: rgba(255, 255, 255, 0.5); /* Semi-transparent for dates */
   font-size: 12px;
 }
 
+/* No results message */
 .noResults {
   text-align: center;
-  color: #666;
+  color: rgba(255, 255, 255, 0.4);
   font-size: 1.2rem;
   grid-column: 1 / -1;
   padding: 50px 0;

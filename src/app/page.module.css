@@ -41,6 +41,7 @@
 .sidePost {
   aspect-ratio: 3 / 2; /* Slightly narrower format */
   width: 100%;
+  margin-bottom: 15px;
 }
 
 /* On the computer, we stretch the side posts to their full height */
