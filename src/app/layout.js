@@ -22,10 +22,9 @@ export default function RootLayout({ children }) {
             alignItems: 'center', 
             padding: '20px 0', 
             borderBottom: '1px solid #333',
-           // marginBottom: '30px'
           }}>
             <Link href="/" style={{ fontSize: '2rem', fontWeight: '900', textDecoration: 'none' }}>
-              <span style={{ color: '#00ccff' }}>Thalion</span>Sport
+              <span style={{ color: 'var(--accent-color)' }}>Thalion</span>Sport
             </Link>
             
             <MobileMenu />

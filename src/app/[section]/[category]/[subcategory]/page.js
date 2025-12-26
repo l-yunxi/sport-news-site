@@ -8,23 +8,28 @@ const SECTION_COLORS = { news: '#ff0055', encyclopedia: '#00ccff', interviews: '
 
 export default async function SubcategoryPage({ params }) {
   const { section, category, subcategory } = await params;
-  if (!VALID_SECTIONS.includes(section)) notFound();
 
-  // receive data in one line
+  if (!VALID_SECTIONS.includes(section)) {
+    notFound();
+  }
+
+ // Get posts (pass all 3 parameters)
   const posts = await getPosts({ section, category, subcategory });
 
-  // preparing "beautiful" names
+  // We prepare beautiful display names
   const catTitle = decodeURIComponent(category).replace(/-/g, " ");
   const subTitle = decodeURIComponent(subcategory).replace(/-/g, " ");
-  const activeColor = SECTION_COLORS[section];
+  
+  // Determine the color
+  const activeColor = SECTION_COLORS[section] || 'white';
 
-  // Form breadcrumbs
-  const crumbs = [
+  // Breadcrumbs (3 levels)
+  const breadcrumbs = [
     { label: section },
-    { label: catTitle, href: `/${section}/${category}` },
-    { label: subTitle, color: activeColor }
+    { label: catTitle, href: `/${section}/${category}` }, // Clickable back link
+    { label: subTitle, color: activeColor } // Last element - colored
   ];
 
-  // Render template
-  return <FeedLayout title={subTitle} posts={posts} breadcrumbs={crumbs} />;
+  // Render using your template
+  return <FeedLayout title={subTitle} posts={posts} breadcrumbs={breadcrumbs} />;
 }

@@ -106,6 +106,18 @@ export default function MobileMenu() {
               </div>
               {openSection === 'interviews' && renderCategories('interviews')}
             </div>
+            
+            <div className={styles.sectionWrapper}>
+                <div className={styles.sectionHeader}>
+                    <Link
+                    href="/post"
+                    onClick={closeMenu}
+                    className={styles.allArticlesLink}
+                    >
+                    <span className={styles.sectionTitle}>All articles</span>
+                    </Link>
+                </div>
+            </div>
 
           </nav>
         </div>

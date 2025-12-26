@@ -1,70 +1,34 @@
-// src/app/[section]/[category]/page.js
 export const dynamic = "force-dynamic";
-import { client } from "@/sanity/client";
-import HeroSection from "@/components/HeroSection";
+import { getPosts } from "@/lib/getPosts"; // universal function
+import FeedLayout from "@/components/FeedLayout"; // design template
 import { notFound } from "next/navigation";
 
-// What sections do we allow (so that we don't write nonsense in the URL)
 const VALID_SECTIONS = ['news', 'encyclopedia', 'interviews'];
+const SECTION_COLORS = { news: '#ff0055', encyclopedia: '#00ccff', interviews: '#ffcc00' };
 
-async function getSectionPosts(section, category) {
-  const cleanCategory = decodeURIComponent(category).replace(/-/g, " ");
-
-  // Find posts where both Section and Category match
-  const query = `*[_type == "post" && section == $section && lower(category) == lower($category)] | order(_createdAt desc) {
-    title,
-    "slug": slug.current,
-    category,
-    section,
-    "imageUrl": mainImage.asset->url
-  }`;
-
-  return await client.fetch(query, { section, category: cleanCategory }, { next: { revalidate: 0 } });
-}
-
-export default async function SectionCategoryPage({ params }) {
-  // get parameters with URL (for ex: news / football)
+export default async function CategoryPage({ params }) {
   const { section, category } = await params;
 
-  // if the section is incorrect - return 404
+  // Checking the section for correctness
   if (!VALID_SECTIONS.includes(section)) {
     notFound();
   }
 
-  const posts = await getSectionPosts(section, category);
+  // Get posts (getPosts will handle the decoding itself)
+  const posts = await getPosts({ section, category });
+
+  // Preparing a good title for the header (decoding for display)
   const titleText = decodeURIComponent(category).replace(/-/g, " ");
+  
+  // Determining the color
+  const activeColor = SECTION_COLORS[section] || 'white';
 
-  const sectionColors = {
-    news: '#ff0055',        
-    encyclopedia: '#00ccff', 
-    interviews: '#ffcc00'   
-  };
-  const activeColor = sectionColors[section] || 'white';
+  // Breadcrumbs (2 levels)
+  const breadcrumbs = [
+    { label: section }, 
+    { label: titleText, color: activeColor } // Last element - colored
+  ];
 
-  return (
-    <div style={{ padding: '20px' }}>
-      {/* breadcrumbs */}
-      <div style={{ color: '#888', textTransform: 'uppercase', fontSize: '0.8rem', marginBottom: '10px' }}>
-        {section} / <span style={{ color: activeColor }}>{titleText}</span>
-      </div>
-
-      <h1 style={{ 
-        fontSize: '3rem', 
-        textTransform: 'uppercase', 
-        borderBottom: `4px solid ${activeColor}`,
-        display: 'inline-block',
-        marginBottom: '30px'
-      }}>
-        {titleText}
-      </h1>
-
-      {posts.length === 0 ? (
-        <div style={{ padding: '50px 0', textAlign: 'center', color: '#888' }}>
-          <h2>In section {section} no articles {titleText} 😔</h2>
-        </div>
-      ) : (
-        <HeroSection posts={posts} />
-      )}
-    </div>
-  );
+  // Render using your template
+  return <FeedLayout title={titleText} posts={posts} breadcrumbs={breadcrumbs} />;
 }

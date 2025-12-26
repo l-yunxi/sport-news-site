@@ -7,9 +7,13 @@ export default function HeroSection({ posts }) {
   // If there is no news, we don't draw anything to avoid errors
   if (!posts || posts.length === 0) return null;
 
-    // Separation logic: 1st post - main, next 3 - side
+  // Separation logic: 1st post - main, next 3 - side
   const mainPost = posts[0];
   const sidePosts = posts.slice(1, 4);
+
+  const mainPostCategory = mainPost.category 
+    ? decodeURIComponent(mainPost.category).replace(/-/g, " ") 
+    : 'Sport';
 
   return (
     <section className={styles.heroGrid}>
@@ -22,26 +26,32 @@ export default function HeroSection({ posts }) {
           <div className={styles.placeholder}>No photo</div>
         )}
         <div className={styles.postContent}>
-          <span className={styles.categoryTag}>{mainPost.category || 'Sport'}</span>
+          <span className={styles.categoryTag}>{mainPostCategory}</span>
           <h2 className={styles.titleMain}>{mainPost.title}</h2>
         </div>
       </Link>
 
       {/* SIDE POSTS (Right) */}
       <div className={styles.sidePostsColumn}>
-        {sidePosts.map((post) => (
-          <Link key={post.slug} href={`/post/${post.slug}`} className={styles.sidePost}>
-            {post.imageUrl ? (
-              <Image src={post.imageUrl} alt={post.title} fill className={styles.bgImage} />
-            ) : (
-              <div className={styles.placeholder}></div>
-            )}
-            <div className={styles.postContent}>
-              <span className={styles.categoryTag}>{post.category}</span>
-              <h3 className={styles.titleSide}>{post.title}</h3>
-            </div>
-          </Link>
-        ))}
+        {sidePosts.map((post) => {
+          const sideCategory = post.category 
+            ? decodeURIComponent(post.category).replace(/-/g, " ") 
+            : 'Sport';
+
+          return (
+            <Link key={post.slug} href={`/post/${post.slug}`} className={styles.sidePost}>
+              {post.imageUrl ? (
+                <Image src={post.imageUrl} alt={post.title} fill className={styles.bgImage} />
+              ) : (
+                <div className={styles.placeholder}></div>
+              )}
+              <div className={styles.postContent}>
+                <span className={styles.categoryTag}>{sideCategory}</span>
+                <h3 className={styles.titleSide}>{post.title}</h3>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

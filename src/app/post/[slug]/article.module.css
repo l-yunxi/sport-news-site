@@ -4,7 +4,7 @@
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 20px;
+  /* padding: 20px; */
   background-color: var(--background); /* Automatically white/black */
   color: var(--foreground); /* Automatically black/white */
   min-height: 100vh;
@@ -26,12 +26,18 @@
   filter: brightness(0.8); /* Slightly darken the photo */
 }
 
+@media all and (min-width: 768px) {
+  .heroOverlay {
+    padding: 40px;
+  }
+}
+
 .heroOverlay {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 40px;
+  padding: 25px;
   /* Adaptive gradient overlay */
   background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
   z-index: 2;
@@ -52,9 +58,8 @@
 
 /* Main article title */
 .title {
-  font-size: 3rem; 
+  font-size: 1.3rem; 
   line-height: 1.1;
-  margin: 0;
   font-weight: 800;
   text-transform: uppercase;
   color: white; 
