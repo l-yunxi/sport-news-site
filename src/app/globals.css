@@ -1,13 +1,31 @@
+/* =========================================
+   1. VARIABLES & THEME (Налаштування кольорів)
+   ========================================= */
 :root {
+  /* Світла тема (за замовчуванням) */
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Акцентний колір (щоб легко міняти по всьому сайту) */
+  --accent-color: #ff0055;
+  --dark-bg: #222;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Темна тема (якщо у користувача на телефоні ввімкнено Dark Mode) */
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+/* =========================================
+   2. GLOBAL RESETS (Базові скидання)
+   ========================================= */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
@@ -15,11 +33,6 @@ body {
   max-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-img {
-  max-width: 100%;
-  display: block;
 }
 
 body {
@@ -30,10 +43,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+img {
+  max-width: 100%;
+  display: block;
 }
 
 a {
@@ -41,67 +53,25 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
+/* =========================================
+   3. UTILITIES (Адаптивність)
+   ========================================= */
 
-
-/* nav styles */
+/* Цей клас ховає елементи (наприклад, старе меню) на мобільних телефонах */
 @media (max-width: 768px) {
   .desktop-only {
     display: none !important;
   }
 }
 
-/* --- DROPDOWN MENU --- */
+/* =========================================
+   4. DESKTOP DROPDOWN MENU (Твоє старе меню)
+   ========================================= */
 
-/* Container for button and list */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Hidden list of links */
-.dropdown-content {
-  display: none; 
-  position: absolute;
-  top: 100%; /* Appears directly under the button */
-  left: 0;
-  background-color: #222; /* Dark background */
-  min-width: 160px; /* List width */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5); /* Shadow */
-  z-index: 100; /* To make menu ABOVE images */
-  border-radius: 8px;
-  border: 1px solid #333;
-  padding: 10px 0;
-}
-
-/* Links inside the list */
-.dropdown-content a {
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block; /* Each link on a new line */
-  transition: background 0.3s;
-}
-
-/* Effect on hover over links in the list */
-.dropdown-content a:hover {
-  background-color: #ff0055; 
-  color: white;
-}
-
-/* MAIN MAGIC: Show the list when hovering over the container */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Button that opens the menu */
+/* Кнопка в меню (наприклад "NEWS ▼") */
 .dropbtn {
   background-color: transparent;
-  color: white;
+  color: white; /* Меню завжди біле, навіть на світлій темі */
   padding: 10px 0;
   font-size: 16px;
   font-weight: bold;
@@ -112,18 +82,60 @@ a {
   gap: 5px;
 }
 
-/* Down arrow */
+/* Контейнер для кнопки та випадаючого списку */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Стрілочка біля тексту */
 .arrow {
   font-size: 10px;
   transition: transform 0.3s;
 }
 
+/* Поворот стрілочки при наведенні */
 .dropdown:hover .arrow {
-  transform: rotate(180deg); /* Rotate arrow on hover */
+  transform: rotate(180deg);
 }
 
+/* Випадаючий список (спочатку прихований) */
+.dropdown-content {
+  display: none; 
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--dark-bg); /* Темний фон меню */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+  z-index: 100;
+  border-radius: 8px;
+  border: 1px solid #333;
+  padding: 10px 0;
+}
 
-/* Submenu styles */
+/* Показуємо список при наведенні */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Посилання всередині випадаючого списку */
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--accent-color); /* Рожевий при наведенні */
+  color: white;
+}
+
+/* =========================================
+   5. SUBMENU (Вкладені підкатегорії)
+   ========================================= */
 .dropdown-submenu {
   position: relative;
 }
@@ -136,15 +148,15 @@ a {
 .submenu-content {
   display: none;
   position: absolute;
-  left: 100%;
+  left: 100%; /* Випадає праворуч */
   top: 0;
-  background-color: #2a2a2a;
+  background-color: #2a2a2a; /* Трохи світліший фон для підменю */
   min-width: 240px;
   box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
   border: 1px solid #444;
   border-radius: 8px;
   padding: 8px 0;
-  margin-left:-1px;
+  margin-left: -1px; /* Прибираємо розрив */
 }
 
 .dropdown-submenu:hover .submenu-content {
@@ -158,6 +170,5 @@ a {
 
 .submenu-content a:hover {
   background-color: #ff006e;
-  padding-left: 28px;
+  padding-left: 28px; /* Ефект зсуву тексту */
 }
-

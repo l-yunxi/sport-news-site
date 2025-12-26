@@ -1,18 +1,25 @@
 /* src/components/MobileMenu.module.css */
 
+/* src/components/MobileMenu.module.css */
+
 .mobileWrapper { display: block; }
 @media (min-width: 768px) { .mobileWrapper { display: none; } }
 
 .burgerBtn {
-  background: none; border: none; color: white;
+  background: none; border: none; 
+  /* Використовуємо змінну для кольору тексту */
+  color: var(--foreground); 
   font-size: 2rem; cursor: pointer; z-index: 2000; position: relative;
 }
 
 .overlay {
   position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background-color: #0a0a0a; z-index: 1999;
+  /* МАГІЯ ТУТ: Фон береться з глобальних налаштувань теми */
+  background-color: var(--background); 
+  z-index: 1999;
   padding: 80px 20px 50px 20px;
   overflow-y: auto;
+  transition: background-color 0.3s ease; /* Плавна зміна кольору */
 }
 
 .navContainer {
@@ -25,21 +32,23 @@
 }
 
 .sectionWrapper {
-  border-bottom: 1px solid #333;
+  /* Робимо лінію напівпрозорою, щоб вона підходила під будь-який фон */
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
   padding-bottom: 10px;
 }
 
-/* Title of the section is clickable */
 .sectionHeader {
   display: flex; 
   justify-content: space-between; 
   align-items: center;
-  cursor: pointer; 
-  padding: 10px 0; 
+  cursor: pointer;
+  padding: 10px 0;
 }
 
 .sectionTitle {
-  color: white; font-size: 1.4rem; font-weight: 800;
+  /* Текст тепер адаптивний */
+  color: var(--foreground); 
+  font-size: 1.4rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 1px;
 }
 
@@ -47,11 +56,12 @@
   color: #ff0055; font-size: 1.2rem;
 }
 
-/* tree category */
+/* Дерево категорій */
 .treeContainer {
   margin-top: 10px;
   padding-left: 10px;
-  border-left: 2px solid #222;
+  /* Лінія зліва теж адаптивна */
+  border-left: 2px solid rgba(128, 128, 128, 0.2);
   animation: fadeIn 0.3s ease;
 }
 
@@ -63,7 +73,10 @@
 .categoryItem { margin-bottom: 15px; }
 
 .catLink {
-  color: #ddd; font-size: 1.1rem; font-weight: bold;
+  /* Трохи світліший/темніший за основний текст */
+  color: var(--foreground);
+  opacity: 0.9; 
+  font-size: 1.1rem; font-weight: bold;
   text-decoration: none; display: block; margin-bottom: 5px;
 }
 
@@ -72,7 +85,13 @@
 }
 
 .subLink {
-  color: #888; font-size: 0.95rem; text-decoration: none;
+  /* Використовуємо адаптивний колір з прозорістю */
+  color: var(--foreground);
+  opacity: 0.6;
+  font-size: 0.95rem; text-decoration: none;
 }
 
-.subLink:hover { color: #fff; }
+.subLink:hover { 
+  opacity: 1;
+  color: #00ccff; /* Акцент при наведенні */
+}
