@@ -133,6 +133,8 @@
 }
 
 /* Increase font size on computers */
+@media (min-width: 768px) {
   .titleMain {
     font-size: 2.5rem;
-  } 
+  }
+}

@@ -9,8 +9,8 @@ const VALID_SECTIONS = ['news', 'encyclopedia', 'interviews'];
 
 async function getSectionPosts(section, category) {
   const cleanCategory = decodeURIComponent(category).replace(/-/g, " ");
-  
-  // Searching for posts where both Section and Category match
+
+  // Find posts where both Section and Category match
   const query = `*[_type == "post" && section == $section && lower(category) == lower($category)] | order(_createdAt desc) {
     title,
     "slug": slug.current,
@@ -23,9 +23,10 @@ async function getSectionPosts(section, category) {
 }
 
 export default async function SectionCategoryPage({ params }) {
-// Get parameters from URL (for example: news/football)  const { section, category } = await params;
+  // get parameters with URL (for ex: news / football)
+  const { section, category } = await params;
 
-// If the section is incorrect - return 404
+  // if the section is incorrect - return 404
   if (!VALID_SECTIONS.includes(section)) {
     notFound();
   }
@@ -33,7 +34,6 @@ export default async function SectionCategoryPage({ params }) {
   const posts = await getSectionPosts(section, category);
   const titleText = decodeURIComponent(category).replace(/-/g, " ");
 
-  // Different colors for different sections
   const sectionColors = {
     news: '#ff0055',        
     encyclopedia: '#00ccff', 
@@ -43,7 +43,7 @@ export default async function SectionCategoryPage({ params }) {
 
   return (
     <div style={{ padding: '20px' }}>
-      {/* Breadcrumbs */}
+      {/* breadcrumbs */}
       <div style={{ color: '#888', textTransform: 'uppercase', fontSize: '0.8rem', marginBottom: '10px' }}>
         {section} / <span style={{ color: activeColor }}>{titleText}</span>
       </div>
@@ -60,7 +60,7 @@ export default async function SectionCategoryPage({ params }) {
 
       {posts.length === 0 ? (
         <div style={{ padding: '50px 0', textAlign: 'center', color: '#888' }}>
-          <h2>In section {section} no articles about {titleText} 😔</h2>
+          <h2>In section {section} no articles {titleText} 😔</h2>
         </div>
       ) : (
         <HeroSection posts={posts} />

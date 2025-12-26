@@ -1,5 +1,6 @@
 // src/components/HeroSection.js
 import Link from "next/link";
+import Image from "next/image";
 import styles from "@/app/page.module.css"; 
 
 export default function HeroSection({ posts }) {
@@ -16,7 +17,7 @@ export default function HeroSection({ posts }) {
       {/* GREAT POST (Left) */}
       <Link href={`/post/${mainPost.slug}`} className={styles.mainPost}>
         {mainPost.imageUrl ? (
-          <img src={mainPost.imageUrl} alt={mainPost.title} className={styles.bgImage} />
+          <Image src={mainPost.imageUrl} alt={mainPost.title} fill className={styles.bgImage} />
         ) : (
           <div className={styles.placeholder}>No photo</div>
         )}
@@ -31,7 +32,7 @@ export default function HeroSection({ posts }) {
         {sidePosts.map((post) => (
           <Link key={post.slug} href={`/post/${post.slug}`} className={styles.sidePost}>
             {post.imageUrl ? (
-              <img src={post.imageUrl} alt={post.title} className={styles.bgImage} />
+              <Image src={post.imageUrl} alt={post.title} fill className={styles.bgImage} />
             ) : (
               <div className={styles.placeholder}></div>
             )}
@@ -42,7 +43,6 @@ export default function HeroSection({ posts }) {
           </Link>
         ))}
       </div>
-
     </section>
   );
 }
