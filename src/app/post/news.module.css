@@ -142,7 +142,7 @@
 
 /* News card title */
 .cardTitle {
-  color: var(--foreground);
+  color: white !important; 
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0 0 10px;
